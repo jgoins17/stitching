@@ -16,15 +16,11 @@
   # path<-"Z:/Rumbaugh Lab/Chubbs/iPSC Project/induced Neurons (iNs)/iN Cell Lines/Cas9 Cell Lines/EGFP Lentivirus iNs/08-08-19_EGFP_Day 23 - Copy/08-08-19_0/08-08-19_0_1"
  
 
-
 #careful dim in the stictch function are set up!!!
  
 # for stitching ####
 animal.folder<-path
 defineOverlap<-0.01
-animal.folder<-'C:/Users/Windows/Desktop/Jessie stitching/001_1'
-animal.folder<-'C:/Users/Windows/Desktop/Jessie stitching/test - Copy'
-animal.folder<-'C:/Users/Windows/Desktop/Jessie stitching/New folder'
 
 stitch.pipeline<-function(animal.folder, channel.names = c('DAPI', 'FITC', 'dsRed')){
   #get all files in the folder
@@ -59,7 +55,7 @@ stitch.pipeline<-function(animal.folder, channel.names = c('DAPI', 'FITC', 'dsRe
     plate.row<-substr(basename(run.plate),1,1)
     plate.row<-as.numeric(as.factor(plate.row))
     #get column ID
-    plate.col<-as.numeric(substr(basename(run.plate),5,6) )
+    plate.col<-as.numeric(substr(basename(run.plate),5,5) )
     #plate order
     plate.order<-order(plate.col, plate.row)
     run.plate<-run.plate[plate.order]
@@ -108,6 +104,7 @@ stitch.pipeline<-function(animal.folder, channel.names = c('DAPI', 'FITC', 'dsRe
   }
 }
 
+#RENAME FILES
 renameFilesForStitching<-function(animal.folder){
 # this function is created and use to rename the files when acquisition is done on a 8 tile image
 # 4 horizontal - 2 vertical that has been acquired in the following order:
@@ -132,9 +129,6 @@ newLabel<-c('fld 5x', 'fld 2x', 'fld 6x', 'fld 3x', 'fld 7x', 'fld 4x')
 }
 
 
-
-
-animal.folder<-'C:/Users/Windows/Desktop/Jessie stitching/test22mod'
 animal.folder<-'Y:/Jessie/e3_3histology'
 renameFilesForStitching(animal.folder)
 stitch.pipeline(animal.folder)
@@ -144,6 +138,6 @@ mainDir <- 'Y:/Jessie/e3_3histology'
 allAnimal <- list.dirs(mainDir, recursive=FALSE)
 
 for(i in seq_along(allAnimal)){
-  print(paste(i,'/', length(allAnimal), ' - ', allAnimal[i]))
+  print(i)
   stitch.pipeline(allAnimal[i])
 }
